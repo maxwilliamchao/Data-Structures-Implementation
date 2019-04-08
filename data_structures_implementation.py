@@ -22,40 +22,72 @@ s = 0
 while s < len(squared_arr):
     print(squared_arr[s])
     s += 1
-
-n = int(input('Enter the length of the array '))
-
-for u in range(n):
-    index = int(input('Enter the next value '))
-    user_arr.append(index)
-
-print(user_arr)
-
-search_index = int(input('Enter the array value you are searching for to get its index '))
-
-k = 0
-
-for x in user_arr:
-    if x == search_index:
-        print(k)
-        break
-    k += 1
-
-
+#
+#n = int(input('Enter the length of the array '))
+#
+#for u in range(n):
+#    index = int(input('Enter the next value '))
+#    user_arr.append(index)
+#
+#print(user_arr)
+#
+#search_index = int(input('Enter the array value you are searching for to get its index '))
+#
+#k = 0
+#
+#for x in user_arr:
+#    if x == search_index:
+#        print(k)
+#        break
+#    k += 1
+#
+#
 #List
-
+[1, 2, 3.14, 'a', ['b', 'c']]
 
 #Tuple
-
+(1, -2), ('Adrian', '999-999-9999', 'example@email.com')
 
 #Set
+x = {m for m in range(8)}
 
+print()
+
+print(x)
+
+print()
 
 #Dictionary
-
+{'pork': 22.50, 'beef': 31.25, 'chicken': 18.75}
 
 #Linked List
+class Node:
+    def __init__(self, data):
+        self.data = data
+        self.next = None #Make None default value for head
 
+def count_nodes(head):
+    count = 1
+    current = head
+    
+    while current.next is not None:
+        current = current.next
+        count += 1
+    return count
+
+nodeA = Node(6)
+nodeB = Node(3)
+nodeC = Node(4)
+nodeD = Node(2)
+nodeE = Node(1)
+
+nodeA.next = nodeB
+nodeB.next = nodeC
+nodeC.next = nodeD
+nodeD.next = nodeE
+
+print(f'\nThis linked list has {count_nodes(nodeA)} nodes\n')
+        
 
 #Stack
 
