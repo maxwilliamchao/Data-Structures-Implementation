@@ -75,19 +75,46 @@ def count_nodes(head):
         count += 1
     return count
 
-nodeA = Node(6)
-nodeB = Node(3)
-nodeC = Node(4)
-nodeD = Node(2)
-nodeE = Node(1)
-
-nodeA.next = nodeB
-nodeB.next = nodeC
-nodeC.next = nodeD
-nodeD.next = nodeE
-
-print(f'\nThis linked list has {count_nodes(nodeA)} nodes\n')
+class linked_list:
+    def __init__(self):
+        self.head = None
         
+    def reverse_iterative(self):
+        prev = None
+        current = self.head
+        while current is not None:
+            next = current.next
+            current.next = prev
+            prev = current
+            current = next
+        self.head = prev
+    
+    def show_nodes(self):
+        temp = self.head
+        while temp:
+            print(temp.data)
+            temp = temp.next
+
+    def push(self, new_data):
+        new_node = Node(new_data)
+        new_node.next = self.head
+        self.head = new_node
+    
+llist = linked_list()
+llist.push(1)
+llist.push(2)
+llist.push(3)
+llist.push(4)
+llist.push(5)
+llist.push(6)
+
+print(f'\nThis linked list has {count_nodes(llist.head)} nodes\n')
+
+llist.show_nodes()
+llist.reverse_iterative()
+print()
+llist.show_nodes()
+print('\nThis list has been reversed iteratively\n')       
 
 #Stack
 
