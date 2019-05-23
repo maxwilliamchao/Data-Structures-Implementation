@@ -118,10 +118,77 @@ print('\nThis list has been reversed iteratively\n')
 
 #Stack
 
+#implemented as a class
+print('Stack')
+class Stack():
+    def __init__(self):
+        self.items = []
+
+    def push(self, item):
+        self.items.append(item)
+
+    def pop(self):
+        self.items.pop()
+
+    def get_stack(self):
+        return self.items
+
+    def is_empty(self):
+        return self.items==[]
+
+    def peek(self):
+        if not self.is_empty():
+            return self.items[-1]
+
+s = Stack()
+s.push(1)
+s.push(2)
+s.push(3)
+print(s.get_stack())
+s.push(4)
+print(s.get_stack())
+s.pop()
+print(s.get_stack())
+print(s.is_empty())
+s.pop()
+s.pop()
+s.pop()
+print(s.get_stack())
+print(s.is_empty())
+s.push('A')
+print(s.peek())
+print()
 
 #Queue
+from collections import deque
+print('Queue')
+class Queue():
+    def __init__(self):
+        self.items = deque()
 
+    def push(self, item):
+        self.items.append(item)
 
+    def pop(self):
+        self.items.pop()
+
+    def pop_left(self):
+        self.items.popleft()
+
+    def get_queue(self):
+        return self.items
+
+q = Queue()
+q.push('A')
+q.push('B')
+q.push('C')
+print(q.get_queue())
+q.pop_left()
+print(q.get_queue())
+q.pop()
+print(q.get_queue())
+
+print()
 #Tree
 
 
