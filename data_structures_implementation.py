@@ -193,8 +193,74 @@ print()
 
 
 #Binary Search Tree
+print('BST')
+class Node:
+    def __init__(self, val):
+        self.val = val
+        self.left = None
+        self.right = None
 
+class Tree:
+    def __init__(self):
+        self.root = None
+    #add node
+    def add(self, val):
+        if(self.root == None):
+            self.root = Node(val)
+        else:
+            self.add_node(self.root, val)
 
+    #node should not be null
+    def add_node(self, node, val):
+        if(node.val < val):
+            self.add_right(node, val)
+        else:
+            self.add_left(node, val)
+
+    def add_right(self, node, val):
+        if(node.right == None):
+            node.right = Node(val)
+        else:
+            self.add_node(node.right, val)
+
+    def add_left(self, node, val):
+        if(node.left == None):
+            node.left = Node(val)
+        else:
+            self.add_node(node.left, val)
+
+    def printTree(self):
+        if(self.root != None):
+            self._printLabel(self.root)
+            self._printTree(self.root)
+
+    def _printLabel(self, node):
+        if(node != None):
+            print('Node ' + str(node.val))
+            self._printLabel(node.left)
+            self._printLabel(node.right)
+
+    def _printTree(self, node):
+        if(node != None):
+            if(node.left != None):
+                print('Node ' + str(node.val) + ' left is ' + str(node.left.val)) 
+            if(node.right != None):
+                print('Node ' + str(node.val) + ' right is ' + str(node.right.val)) 
+
+            self._printTree(node.left)
+            self._printTree(node.right)
+            
+tree = Tree()
+tree.add(3)
+tree.add(4)
+tree.add(0)
+tree.add(8)
+tree.add(1)
+tree.add(2)
+tree.add(7)
+tree.add(9)
+tree.printTree()
+print()
 #Heap
 
 
