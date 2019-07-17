@@ -60,6 +60,8 @@ print()
 #Dictionary
 {'pork': 22.50, 'beef': 31.25, 'chicken': 18.75}
 
+#Linear Data Structures: List/Array, Linked List, Stack, Queue
+
 #Linked List
 class Node:
     def __init__(self, data):
@@ -189,10 +191,12 @@ q.pop()
 print(q.get_queue())
 
 print()
-#Tree
 
 
-#Binary Search Tree
+#Binary Search Tree - used to store naturally hierarchial data like a file system. EX. Network routing algorithms
+#Node values are ordered, beginning after the root,  with the left child less than the parent and the right child greater than
+#The leftmost node should be the smallest, the root in the middle, and the rightmost the greatest
+#Olog(n) time complexity
 print('BST')
 class Node:
     def __init__(self, val):
@@ -243,14 +247,15 @@ class Tree:
     def _printTree(self, node):
         if(node != None):
             if(node.left != None):
-                print('Node ' + str(node.val) + ' left is ' + str(node.left.val)) 
+                print('Node ' + str(node.val) + '\'s left child is ' + str(node.left.val)) 
             if(node.right != None):
-                print('Node ' + str(node.val) + ' right is ' + str(node.right.val)) 
+                print('Node ' + str(node.val) + '\'s right child is ' + str(node.right.val)) 
 
             self._printTree(node.left)
             self._printTree(node.right)
             
 tree = Tree()
+tree.add(5)
 tree.add(3)
 tree.add(4)
 tree.add(0)
@@ -261,13 +266,217 @@ tree.add(7)
 tree.add(9)
 tree.printTree()
 print()
-#Heap
+#Heap - Min/Max heaps have their min/max node at the root of a binary tree
+#parent nodes are always less than their children for a min heap and greater than for a max heap
+#it is complete and not unbalanced
+#heaps are one maximally efficient implementation of a priority queue data type
+#it has nothing to do with the memory pool from which dynamically allocated memory is allocated
+#O(1) time complexity
+
+print('Max Heap')
+
+class Heap(object):
+
+    HEAP_SIZE = 10;
+
+    def __init__(self):
+        self.heap = [0]*Heap.HEAP_SIZE
+        self.currentPosition = -1
+
+    def insert(self, item):
+        if(self.isFull()):
+            print('Heap is full')
+            return
+        
+        self.currentPosition = self.currentPosition + 1
+        self.heap[self.currentPosition] = item
+        self.fixUp(self.currentPosition)
+
+    def fixUp(self, index):
+        parentIndex = int((index - 1)/2)
+
+        while(parentIndex >= 0 and self.heap[parentIndex] < self.heap[index]):
+            temp = self.heap[index]
+            self.heap[index] = self.heap[parentIndex]
+            self.heap[parentIndex] = temp
+            index = parentIndex
+            parentIndex = int((index - 1)/2)
+
+    def getMax(self):
+        result = self.heap[0]
+        self.currentPosition = self.currentPosition - 1
+        self.heap[0] = self.heap[self.currentPosition]
+        del self.heap[self.currentPosition + 1]
+        self.fixDown(0, -1)
+        return result
+
+    def fixDown(self, index, upto):
+        if(upto < 0):
+            upto = self.currentPosition
+
+        while(index <= upto):
+            leftChild = 2 * index + 1
+            rightChild = 2 * index + 2
+
+            if(leftChild <= upto):
+                childToSwap = None
+
+                if(rightChild > upto):
+                    childToSwap = leftChild
+                else:
+                    if(self.heap[leftChild] > self.heap[rightChild]):
+                        childToSwap = leftChild
+                    else:
+                        childToSwap = rightChild
+
+                if(self.heap[index] < self.heap[childToSwap]):
+                    temp = self.heap[index]
+                    self.heap[index] = self.heap[childToSwap]
+                    self.heap[childToSwap] = temp
+                else:
+                    break
+
+                index = childToSwap
+
+            else:
+                break
+    
+    #perform O(N logN) sorting IN PLACE
+    def heapsort(self):
+        for i in range(0,self.currentPosition + 1):
+            temp = self.heap[0]
+            print("%d " % temp)
+            self.heap[0] = self.heap[self.currentPosition - i]
+            self.heap[self.currentPosition - i] = temp
+            self.fixDown(0, self.currentPosition - i - 1)
 
 
+    def isFull(self):
+        if(self.currentPosition == Heap.HEAP_SIZE):
+            return True
+        else:
+            return False
+
+heap = Heap()
+heap.insert(12)
+heap.insert(-3)
+heap.insert(23)
+heap.insert(4)
+heap.heapsort()
+
+print()
 #Hashing/Hashmap/Hashtable
 
 
+
+
+
+
+
 #Graph
+class Vertex:
+    def __init__(self, key):
+        self.id = key
+        self.connectedTo = {}  #key is vertex obj, value is cost
+
+    def addNeighbor(self, nbr, cost = None): #nbr is vertex obj
+        self.connectedTo[nbr] = cost
+
+    #printing
+    def __str__(self):
+        return str(self.id) + ' connectedTo: ' + str([x.id for x in self.connectedTo])
+
+    def getConnections(self):   #returns vertex objects list
+        return self.connectedTo.keys()
+
+    def getId(self):
+        return self.id
+
+    def getWeight(self, nbr):  #nbr vertex object
+        return self.connectedTo[nbr]
+
+class Graph:
+    def __init__(self):
+        self.vertList = {}  #dict of id key and vertex obj value
+        self.numVertices = 0
+
+    def addVertex(self, key):
+        self.numVertices = self.numVertices + 1
+        newVertex = Vertex(key)
+        self.vertList[key] = newVertex
+        return newVertex
+
+    def getVertex(self, n): #returns Vertex object with id n
+        if(n in self.vertList):
+            return self.vertList[n]
+        else:
+            return None
+
+    def __contains__(self, n): #check if vertex object n in self
+        return n in self.vertList
+
+
+    #graph user will need to call this twice for undirected graph
+    def addEdge(self, f, t, cost = 0): #note nv not used
+        if f not in self.vertList:
+            nv = self.addVertex(f)
+        if t not in self.vertList:
+            nv = self.addVertex(t)
+        self.vertList[f].addNeighbor(self.vertList[t], cost)
+
+    def getVertices(self): #gets list of ids, not vertex objects
+        return self.vertList.keys()
+
+    def __iter__(self):
+        return iter(self.vertList.values())
+
+
+print()
+print('A Simple graph')
+#create a simple graph without direction
+def add_both_edges(g, key1, key2):
+    g.addEdge(key1, key2)
+    g.addEdge(key2, key1)
+
+g = Graph()
+add_both_edges(g, 'Mary', 'Sam')
+add_both_edges(g, 'Mary', 'Tom')
+add_both_edges(g, 'Mary', 'Joe')
+add_both_edges(g, 'Joe', 'Tom')
+g.addVertex('Sally')
+
+#printing
+for from_id in g.getVertices():
+    t = tuple(v.id for v in g.getVertex(from_id).connectedTo.keys())
+    print(f'edge: {from_id} to {t}')
+
+print()
+
+#create a directed graph
+print('Directed graph')
+h = Graph()
+h.addEdge('V0', 'V1', 5)
+h.addEdge('V0', 'V5', 2)
+h.addEdge('V1', 'V2', 4)
+h.addEdge('V2', 'V3', 9)
+h.addEdge('V3', 'V4', 7)
+h.addEdge('V3', 'V5', 3)
+h.addEdge('V4', 'V0', 1)
+h.addEdge('V5', 'V2', 1)
+h.addEdge('V5', 'V4', 8)
+
+
+#printing
+for from_id in h.getVertices():
+    t = tuple(f'{v.id}:{cost}' for v, cost in h.getVertex(from_id).connectedTo.items())
+    print(f'edge: {from_id} to : {t}')
+
+
+
+print()
+
+
+
 
 
 #Matrix
