@@ -11,12 +11,16 @@ squared_arr = array(arr.typecode, (a*a for a in arr))
 
 user_arr = array('i', [])
 
+print('\nPrinting a python array of numbers, then another array of characters')
+
 for i in range(len(arr)):
     print(arr[i])
 
 for e in char_arr:
     print(e)
 
+
+print('\nUsing computation to print squares of number array in one line')
 s = 0
 
 while s < len(squared_arr):
@@ -43,22 +47,26 @@ while s < len(squared_arr):
 #
 #
 #List
-[1, 2, 3.14, 'a', ['b', 'c']]
+ex_list = [1, 2, 3.14, 'a', ['b', 'c']]
+print('\nExample of a list in python \n' + str(ex_list))
 
 #Tuple
-(1, -2), ('Adrian', '999-999-9999', 'example@email.com')
+tuple1 = (1, -2)
+tuple2 = ('Adrian', '999-999-9999', 'example@email.com')
+print('\nExample of tuples\n' + str(tuple1) + '\n' + str(tuple2))
 
 #Set
 x = {m for m in range(8)}
 
 print()
 
-print(x)
+print('\nThis is a set.  Sets are unordered and contain unique elements\n' + str(x))
 
 print()
 
 #Dictionary
-{'pork': 22.50, 'beef': 31.25, 'chicken': 18.75}
+dictionary1 = {'pork': 22.50, 'beef': 31.25, 'chicken': 18.75}
+print('\nLike sets, dictionaries are unordered but instead, contain unique key-value pairs\n' + str(dictionary1))
 
 #Linear Data Structures: List/Array, Linked List, Stack, Queue
 
@@ -113,15 +121,16 @@ llist.push(6)
 print(f'\nThis linked list has {count_nodes(llist.head)} nodes\n')
 
 llist.show_nodes()
+
+print('\nThis list has been reversed iteratively')       
 llist.reverse_iterative()
 print()
 llist.show_nodes()
-print('\nThis list has been reversed iteratively\n')       
 
 #Stack
 
 #implemented as a class
-print('Stack')
+print('\nStack')
 class Stack():
     def __init__(self):
         self.items = []
@@ -151,14 +160,14 @@ s.push(4)
 print(s.get_stack())
 s.pop()
 print(s.get_stack())
-print(s.is_empty())
+print(str(s.is_empty()) + ' <-- Is the stack empty?')
 s.pop()
 s.pop()
 s.pop()
-print(s.get_stack())
-print(s.is_empty())
+print(str(s.get_stack()) + ' <-- An empty stack')
+print(str(s.is_empty()) + ' <-- Now the stack is empty')
 s.push('A')
-print(s.peek())
+print(str(s.peek()) + ' <-- After adding an "A" peeks at the top of stack') 
 print()
 
 #Queue
@@ -365,7 +374,8 @@ heap.insert(4)
 heap.heapsort()
 
 print()
-#Hashing/Hashmap/Hashtable
+#Hashmap
+print('Hashmap')
 
 
 
@@ -373,6 +383,7 @@ print()
 
 
 
+print()
 #Graph
 class Vertex:
     def __init__(self, key):
@@ -480,6 +491,7 @@ print()
 
 
 #Matrix
+print('Matrix math')
 from numpy import *
 
 
@@ -496,26 +508,39 @@ print(arr1)
 
 print()
 
-print(arr2)
+print(str(arr2) + ' flattened')
 
 print()
 
-print(arr3)
+print(str(arr3) + ' reshaped\n') 
 
 m = matrix('1 2 3; 4 5 6')
 n = matrix('1 2 3; 3 4 42')
 o = matrix('1 0; 0 1; 0 0')
 
-print()
-
 print(m)
+print()
+print(n)
+print()
+print(o)
 
 print()
 
-print(m + n)
+print(str(m) + ' matrix m')
+
+print()
+
+print(str(m + n) + 'matrix n')
 
 print()
 
 #[1*1+2*0+3*0= 1 1*0+2*1+3*0= 2]    Each index in [1stRow*1stCol 1stRow*2ndCol]
 #[3*1+4*0+42*0= 3 3*0+4*1+42*0= 4]                [2ndRow*1stCol 2ndRow*2ndCol]
-print(n * o)
+print(str(n * o) + ' matrix n * matix o\n')
+print('''[1*1+2*0+3*0= 1 1*0+2*1+3*0= 2]    Each index in [1stRow*1stCol 1stRow*2ndCol]
+[3*1+4*0+42*0= 3 3*0+4*1+42*0= 4]                [2ndRow*1stCol 2ndRow*2ndCol]
+''')
+
+
+
+
