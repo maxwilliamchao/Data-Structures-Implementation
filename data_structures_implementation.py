@@ -1,5 +1,7 @@
 #  Data Structures Implementation
 
+from collections import deque
+
 # Array
 from array import *
 
@@ -62,12 +64,13 @@ print('''\nLike sets, dictionaries are unordered but instead,
 class Node:
     def __init__(self, data):
         self.data = data
-        self.next = None # Make None default value for head
+        self.next = None  # Make None default value for head
+
 
 def count_nodes(head):
     count = 1
     current = head
-    
+
     while current.next is not None:
         current = current.next
         count += 1
@@ -77,7 +80,7 @@ def count_nodes(head):
 class linked_list:
     def __init__(self):
         self.head = None
-        
+
     def reverse_iterative(self):
         prev = None
         current = self.head
@@ -87,7 +90,7 @@ class linked_list:
             prev = current
             current = next
         self.head = prev
-    
+
     def show_nodes(self):
         temp = self.head
         while temp:
@@ -98,7 +101,8 @@ class linked_list:
         new_node = Node(new_data)
         new_node.next = self.head
         self.head = new_node
-    
+
+
 llist = linked_list()
 llist.push(1)
 llist.push(2)
@@ -111,7 +115,7 @@ print(f'\nThis linked list has {count_nodes(llist.head)} nodes\n')
 
 llist.show_nodes()
 
-print('\nThis list has been reversed iteratively')       
+print('\nThis list has been reversed iteratively')
 llist.reverse_iterative()
 print()
 llist.show_nodes()
@@ -136,11 +140,12 @@ class Stack():
         return self.items
 
     def is_empty(self):
-        return self.items==[]
+        return self.items == []
 
     def peek(self):
         if not self.is_empty():
             return self.items[-1]
+
 
 s = Stack()
 s.push(1)
@@ -158,11 +163,11 @@ s.pop()
 print(str(s.get_stack()) + ' <-- An empty stack')
 print(str(s.is_empty()) + ' <-- Now the stack is empty')
 s.push('A')
-print(str(s.peek()) + ' <-- After adding an "A" peeks at the top of stack') 
+print(str(s.peek()) + ' <-- After adding an "A" peeks at the top of stack')
 print()
 
 # Queue
-from collections import deque
+# from collections import deque
 print('Queue')
 
 
@@ -182,6 +187,7 @@ class Queue():
     def get_queue(self):
         return self.items
 
+
 q = Queue()
 q.push('A')
 q.push('B')
@@ -195,11 +201,17 @@ print(q.get_queue())
 print()
 
 
-# Binary Search Tree - used to store naturally hierarchial data like a file system. EX. Network routing algorithms
-# Node values are ordered, beginning after the root,  with the left child less than the parent and the right child greater than
-# The leftmost node should be the smallest, the root in the middle, and the rightmost the greatest
+# Binary Search Tree - used to store naturally hierarchial data
+# like a file system. EX. Network routing algorithms
+
+# Node values are ordered, beginning after the root,
+# with the left child less than the parent and the right child greater than
+
+# The leftmost node should be the smallest, the root in the middle,
+# and the rightmost the greatest
+
 # Olog(n) time complexity
-print('BST')
+print('Binary Search Tree')
 
 
 class Node:
@@ -212,9 +224,10 @@ class Node:
 class Tree:
     def __init__(self):
         self.root = None
+
     # add node
     def add(self, val):
-        if(self.root == None):
+        if(self.root is None):
             self.root = Node(val)
         else:
             self.add_node(self.root, val)
@@ -227,38 +240,41 @@ class Tree:
             self.add_left(node, val)
 
     def add_right(self, node, val):
-        if(node.right == None):
+        if(node.right is None):
             node.right = Node(val)
         else:
             self.add_node(node.right, val)
 
     def add_left(self, node, val):
-        if(node.left == None):
+        if(node.left is None):
             node.left = Node(val)
         else:
             self.add_node(node.left, val)
 
     def printTree(self):
-        if(self.root != None):
+        if(self.root is not None):
             self._printLabel(self.root)
             self._printTree(self.root)
 
     def _printLabel(self, node):
-        if(node != None):
+        if(node is not None):
             print('Node ' + str(node.val))
             self._printLabel(node.left)
             self._printLabel(node.right)
 
     def _printTree(self, node):
-        if(node != None):
-            if(node.left != None):
-                print('Node ' + str(node.val) + '\'s left child is ' + str(node.left.val)) 
-            if(node.right != None):
-                print('Node ' + str(node.val) + '\'s right child is ' + str(node.right.val)) 
+        if(node is not None):
+            if(node.left is not None):
+                print('Node ' + str(node.val) + '\'s left child is '
+                      + str(node.left.val))
+            if(node.right is not None):
+                print('Node ' + str(node.val) + '\'s right child is '
+                      + str(node.right.val))
 
             self._printTree(node.left)
             self._printTree(node.right)
-            
+
+
 tree = Tree()
 tree.add(5)
 tree.add(3)
@@ -272,10 +288,18 @@ tree.add(9)
 tree.printTree()
 print()
 # Heap - Min/Max heaps have their min/max node at the root of a binary tree
-# parent nodes are always less than their children for a min heap and greater than for a max heap
+
+# parent nodes are always less than their children for a min heap
+# and greater than for a max heap
+
 # it is complete and not unbalanced
-# heaps are one maximally efficient implementation of a priority queue data type
-# it has nothing to do with the memory pool from which dynamically allocated memory is allocated
+
+# heaps are one maximally efficient implementation of a
+# priority queue data type
+
+# it has nothing to do with the memory pool from which
+# dynamically allocated memory is allocated
+
 # O(1) time complexity
 
 print('Max Heap')
@@ -283,7 +307,7 @@ print('Max Heap')
 
 class Heap(object):
 
-    HEAP_SIZE = 10;
+    HEAP_SIZE = 10
 
     def __init__(self):
         self.heap = [0]*Heap.HEAP_SIZE
@@ -293,7 +317,7 @@ class Heap(object):
         if(self.isFull()):
             print('Heap is full')
             return
-        
+
         self.currentPosition = self.currentPosition + 1
         self.heap[self.currentPosition] = item
         self.fixUp(self.currentPosition)
@@ -346,22 +370,22 @@ class Heap(object):
 
             else:
                 break
-    
+
     # perform O(N logN) sorting IN PLACE
     def heapsort(self):
-        for i in range(0,self.currentPosition + 1):
+        for i in range(0, self.currentPosition + 1):
             temp = self.heap[0]
             print("%d " % temp)
             self.heap[0] = self.heap[self.currentPosition - i]
             self.heap[self.currentPosition - i] = temp
             self.fixDown(0, self.currentPosition - i - 1)
 
-
     def isFull(self):
         if(self.currentPosition == Heap.HEAP_SIZE):
             return True
         else:
             return False
+
 
 heap = Heap()
 heap.insert(12)
@@ -385,81 +409,79 @@ class HashMap:
 
     def _get_hash(self, key):
         hash = 0
-        for char in str(key): # example simple hashing function
+        for char in str(key):  # example simple hashing function
             hash += ord(char)
         return hash % self.size
 
     def add(self, key, value):
-        key_hash = self._get_hash(key) # the index value
-        key_value = [key, value] # what you want to insert into the cell
+        key_hash = self._get_hash(key)  # the index value
+        key_value = [key, value]  # what you want to insert into the cell
 
-        if(self.map[key_hash] is None): # checks if cell is empty
-            self.map[key_hash] = list([key_value]) # adds key-value pair list
+        if(self.map[key_hash] is None):  # checks if cell is empty
+            self.map[key_hash] = list([key_value])  # adds key-value pair list
             return True
         else:
-            for pair in self.map[key_hash]: # if the key exists update the val
+            for pair in self.map[key_hash]:  # if the key exists update the val
                 if(pair[0] == key):
                     pair[1] = value
                     return True
-            self.map[key_hash].append(key_value) # else append key to list 
+            self.map[key_hash].append(key_value)  # else append key to list
             return True
 
     def get(self, key):
         key_hash = self._get_hash(key)
         if(self.map[key_hash] is not None):
-            for pair in self.map[key_hash]: # iterates pairs in each cell
+            for pair in self.map[key_hash]:  # iterates pairs in each cell
                 if(pair[0] == key):
-                    return pair[1] # to return val that matches key
+                    return pair[1]  # to return val that matches key
         return None
 
     def delete(self, key):
         key_hash = self._get_hash(key)
         if(self.map[key_hash] is None):
             return False
-        for i in range(0, len(self.map[key_hash])): #gets index
-            if(self.map[key_hash][i][0] == key): # locate item to be removed
+        for i in range(0, len(self.map[key_hash])):  # gets index
+            if(self.map[key_hash][i][0] == key):  # locate item to be removed
                 self.map[key_hash].pop(i)
                 return True
 
     def print(self):
         print('---Phonebook---')
-        for item in self.map: # prints the non-None cells
+        for item in self.map:  # prints the non-None cells
             if(item is not None):
                 print(str(item))
+
 
 h = HashMap()
 h.add('Bob', '567-8888')
 h.add('Ming', '293-6753')
-h.add('Ming', '333-8233') # overwrites old number with new
+h.add('Ming', '333-8233')  # overwrites old number with new
 h.add('Ankit', '293-8625')
 h.add('Aditya', '852-6551')
 h.add('Alicia', '632-4123')
 h.add('Mike', '567-2188')
-h.add('Aditya', '777-8888') # overwrite again
+h.add('Aditya', '777-8888')  # overwrite again
 h.print()
 h.delete('Bob')
 print('\nNow without Bob\n')
 h.print()
 print('Ming: ' + h.get('Ming'))
 
-
-
-
-
-
 # Graph
+
 
 class Vertex:
     def __init__(self, key):
         self.id = key
         self.connectedTo = {}  # key is vertex obj, value is cost
 
-    def addNeighbor(self, nbr, cost = None): # nbr is vertex obj
+    def addNeighbor(self, nbr, cost=None):  # nbr is vertex obj
         self.connectedTo[nbr] = cost
 
     # printing
     def __str__(self):
-        return str(self.id) + ' connectedTo: ' + str([x.id for x in self.connectedTo])
+        return str(self.id) + ' connectedTo: '
+        + str([x.id for x in self.connectedTo])
 
     def getConnections(self):   # returns vertex objects list
         return self.connectedTo.keys()
@@ -482,25 +504,24 @@ class Graph:
         self.vertList[key] = newVertex
         return newVertex
 
-    def getVertex(self, n): # returns Vertex object with id n
+    def getVertex(self, n):  # returns Vertex object with id n
         if(n in self.vertList):
             return self.vertList[n]
         else:
             return None
 
-    def __contains__(self, n): # check if vertex object n in self
+    def __contains__(self, n):  # check if vertex object n in self
         return n in self.vertList
 
-
     # graph user will need to call this twice for undirected graph
-    def addEdge(self, f, t, cost = 0): # note nv not used
+    def addEdge(self, f, t, cost=0):  # note nv not used
         if f not in self.vertList:
             nv = self.addVertex(f)
         if t not in self.vertList:
             nv = self.addVertex(t)
         self.vertList[f].addNeighbor(self.vertList[t], cost)
 
-    def getVertices(self): # gets list of ids, not vertex objects
+    def getVertices(self):  # gets list of ids, not vertex objects
         return self.vertList.keys()
 
     def __iter__(self):
@@ -510,9 +531,12 @@ class Graph:
 print()
 print('A Simple graph')
 # create a simple graph without direction
+
+
 def add_both_edges(g, key1, key2):
     g.addEdge(key1, key2)
     g.addEdge(key2, key1)
+
 
 g = Graph()
 add_both_edges(g, 'Mary', 'Sam')
@@ -544,16 +568,9 @@ h.addEdge('V5', 'V4', 8)
 
 # printing
 for from_id in h.getVertices():
-    t = tuple(f'{v.id}:{cost}' for v, cost in h.getVertex(from_id).connectedTo.items())
-    print(f'edge: {from_id} to : {t}')
-
-
-
-print()
-
-
-
-
+    t = tuple(f'{v.id}:{cost}' for v, cost
+              in h.getVertex(from_id).connectedTo.items())
+    print(f'edge: {from_id} to : {t}\n')
 
 # Matrix
 print('Matrix math')
@@ -577,7 +594,7 @@ print(str(arr2) + ' flattened')
 
 print()
 
-print(str(arr3) + ' reshaped\n') 
+print(str(arr3) + ' reshaped\n')
 
 m = matrix('1 2 3; 4 5 6')
 n = matrix('1 2 3; 3 4 42')
@@ -588,13 +605,10 @@ print(str(n) + ' matrix n\n')
 print(str(o) + ' matrix o\n')
 print(str(m + n) + ' matrix m + matrix n\n')
 
-# [1*1+2*0+3*0= 1 1*0+2*1+3*0= 2]    Each index in [1stRow*1stCol 1stRow*2ndCol]
-# [3*1+4*0+42*0= 3 3*0+4*1+42*0= 4]                [2ndRow*1stCol 2ndRow*2ndCol]
+# [1*1+2*0+3*0= 1 1*0+2*1+3*0= 2]   Each index in [1stRow*1stCol 1stRow*2ndCol]
+# [3*1+4*0+42*0= 3 3*0+4*1+42*0= 4]               [2ndRow*1stCol 2ndRow*2ndCol]
 print(str(n * o) + ' matrix n * matrix o\n')
-print('''[1*1+2*0+3*0= 1 1*0+2*1+3*0= 2]    Each index in [1stRow*1stCol 1stRow*2ndCol]
-[3*1+4*0+42*0= 3 3*0+4*1+42*0= 4]                [2ndRow*1stCol 2ndRow*2ndCol]
+print(
+    '''[1*1+2*0+3*0= 1 1*0+2*1+3*0= 2]  means [1stRow*1stCol 1stRow*2ndCol]
+[3*1+4*0+42*0= 3 3*0+4*1+42*0= 4]             [2ndRow*1stCol 2ndRow*2ndCol]
 ''')
-
-
-
-
